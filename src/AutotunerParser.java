@@ -16,7 +16,8 @@ public class AutotunerParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		PRAGMA_TUNER=1, TUNER_ID=2, WHITESPACE=3;
+		PRAGMA_TUNER=1, TUNER_ID=2, EXPLORE=3, MAX_ABS_ERROR=4, WHITESPACE=5, 
+		NEWLINE=6, VARIABLE=7;
 	public static final int
 		RULE_pragma = 0;
 	public static final String[] ruleNames = {
@@ -24,10 +25,11 @@ public class AutotunerParser extends Parser {
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, null, null, "' '"
+		null, null, null, null, null, "' '", "'\n'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, "PRAGMA_TUNER", "TUNER_ID", "WHITESPACE"
+		null, "PRAGMA_TUNER", "TUNER_ID", "EXPLORE", "MAX_ABS_ERROR", "WHITESPACE", 
+		"NEWLINE", "VARIABLE"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -81,6 +83,7 @@ public class AutotunerParser extends Parser {
 	public static class PragmaContext extends ParserRuleContext {
 		public TerminalNode PRAGMA_TUNER() { return getToken(AutotunerParser.PRAGMA_TUNER, 0); }
 		public TerminalNode TUNER_ID() { return getToken(AutotunerParser.TUNER_ID, 0); }
+		public TerminalNode NEWLINE() { return getToken(AutotunerParser.NEWLINE, 0); }
 		public List<TerminalNode> WHITESPACE() { return getTokens(AutotunerParser.WHITESPACE); }
 		public TerminalNode WHITESPACE(int i) {
 			return getToken(AutotunerParser.WHITESPACE, i);
@@ -108,36 +111,24 @@ public class AutotunerParser extends Parser {
 			{
 			setState(2);
 			match(PRAGMA_TUNER);
-			setState(6);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==WHITESPACE) {
-				{
-				{
-				setState(3);
-				match(WHITESPACE);
-				}
-				}
-				setState(8);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
-			setState(9);
+			setState(3);
 			match(TUNER_ID);
-			setState(13);
+			setState(7);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==WHITESPACE) {
 				{
 				{
-				setState(10);
+				setState(4);
 				match(WHITESPACE);
 				}
 				}
-				setState(15);
+				setState(9);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
+			setState(10);
+			match(NEWLINE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -152,12 +143,11 @@ public class AutotunerParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\5\23\4\2\t\2\3\2"+
-		"\3\2\7\2\7\n\2\f\2\16\2\n\13\2\3\2\3\2\7\2\16\n\2\f\2\16\2\21\13\2\3\2"+
-		"\2\2\3\2\2\2\23\2\4\3\2\2\2\4\b\7\3\2\2\5\7\7\5\2\2\6\5\3\2\2\2\7\n\3"+
-		"\2\2\2\b\6\3\2\2\2\b\t\3\2\2\2\t\13\3\2\2\2\n\b\3\2\2\2\13\17\7\4\2\2"+
-		"\f\16\7\5\2\2\r\f\3\2\2\2\16\21\3\2\2\2\17\r\3\2\2\2\17\20\3\2\2\2\20"+
-		"\3\3\2\2\2\21\17\3\2\2\2\4\b\17";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\t\17\4\2\t\2\3\2"+
+		"\3\2\3\2\7\2\b\n\2\f\2\16\2\13\13\2\3\2\3\2\3\2\2\2\3\2\2\2\16\2\4\3\2"+
+		"\2\2\4\5\7\3\2\2\5\t\7\4\2\2\6\b\7\7\2\2\7\6\3\2\2\2\b\13\3\2\2\2\t\7"+
+		"\3\2\2\2\t\n\3\2\2\2\n\f\3\2\2\2\13\t\3\2\2\2\f\r\7\b\2\2\r\3\3\2\2\2"+
+		"\3\t";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

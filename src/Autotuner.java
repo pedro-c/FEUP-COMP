@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Autotuner {
     public static void main(String[] args) {
-        String filePath = "/home/bernardo/Documents/FEUP-COMP/out/production/FEUP-COMP/test.c";
+        String filePath = "test.c";
 
         ANTLRFileStream fileStream = null;
         try {

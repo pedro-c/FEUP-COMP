@@ -1,6 +1,6 @@
 # FEUP-COMP
 
-### Grupo-6 - P19 - Auto - Project about offline autotuning
+### Grupo-5 - P19 - Auto - Project about offline autotuning
 
 An autotuner for C programs. The user adds pragmas to the source code and the auto-tuner automatically determines the best values for some constants.
 

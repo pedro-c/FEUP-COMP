@@ -2,27 +2,33 @@ grammar Autotuner;
 
 /* Parser Rules */
 
-pragma: PRAGMA_TUNER TUNER_ID WHITESPACE* NEWLINE;
+pragma: pragmaTuner tunerId expression* NEWLINE;
 
+pragmaTuner: '#' WHITESPACE* 'pragma' WHITESPACE+ 'tuner' WHITESPACE+;
+
+tunerId: EXPLORE | MAX_ABS_ERROR;
+
+expression:
+    step | reference | VARIABLE | DigitSequence ;
+
+step: VARIABLE OPENPAR DigitSequence COMMA DigitSequence CLOSEPAR;
+
+reference: REFERENCE OPENPAR VARIABLE ASSIGN DigitSequence;
 
 /* Lexer Rules */
-PRAGMA_TUNER: '#' WHITESPACE* 'pragma' WHITESPACE+ 'tuner' WHITESPACE+;
-
-TUNER_ID
-    : EXPLORE
-    | MAX_ABS_ERROR;
-
-EXPLORE
-    : 'explore' WHITESPACE+ VARIABLE WHITESPACE*
-    '(' WHITESPACE* DigitSequence WHITESPACE*
-    ',' WHITESPACE* DigitSequence WHITESPACE* ')';
-
-MAX_ABS_ERROR
-    : 'max_abs_error' WHITESPACE+ VARIABLE WHITESPACE+ DigitSequence;
 
 WHITESPACE : ' ' -> skip;
 NEWLINE : '\n' -> skip;
 
+EXPLORE: 'explore';
+MAX_ABS_ERROR: 'max_abs_error';
+
+REFERENCE: 'reference';
+
+OPENPAR: '(';
+CLOSEPAR: ')';
+COMMA: ',';
+ASSIGN: '=';
 
 /* C Parser */
 

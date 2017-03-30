@@ -16,4 +16,54 @@ public interface AutotunerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPragma(AutotunerParser.PragmaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AutotunerParser#pragmaTuner}.
+	 * @param ctx the parse tree
+	 */
+	void enterPragmaTuner(AutotunerParser.PragmaTunerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AutotunerParser#pragmaTuner}.
+	 * @param ctx the parse tree
+	 */
+	void exitPragmaTuner(AutotunerParser.PragmaTunerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AutotunerParser#tunerId}.
+	 * @param ctx the parse tree
+	 */
+	void enterTunerId(AutotunerParser.TunerIdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AutotunerParser#tunerId}.
+	 * @param ctx the parse tree
+	 */
+	void exitTunerId(AutotunerParser.TunerIdContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AutotunerParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression(AutotunerParser.ExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AutotunerParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression(AutotunerParser.ExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AutotunerParser#step}.
+	 * @param ctx the parse tree
+	 */
+	void enterStep(AutotunerParser.StepContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AutotunerParser#step}.
+	 * @param ctx the parse tree
+	 */
+	void exitStep(AutotunerParser.StepContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AutotunerParser#reference}.
+	 * @param ctx the parse tree
+	 */
+	void enterReference(AutotunerParser.ReferenceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AutotunerParser#reference}.
+	 * @param ctx the parse tree
+	 */
+	void exitReference(AutotunerParser.ReferenceContext ctx);
 }

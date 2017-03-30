@@ -36,6 +36,36 @@ public class Autotuner {
             }
 
             @Override
+            public void enterPragmaTuner(AutotunerParser.PragmaTunerContext ctx) {
+
+            }
+
+            @Override
+            public void exitPragmaTuner(AutotunerParser.PragmaTunerContext ctx) {
+
+            }
+
+            @Override
+            public void enterTunerId(AutotunerParser.TunerIdContext ctx) {
+
+            }
+
+            @Override
+            public void exitTunerId(AutotunerParser.TunerIdContext ctx) {
+
+            }
+
+            @Override
+            public void enterExpression(AutotunerParser.ExpressionContext ctx) {
+
+            }
+
+            @Override
+            public void exitExpression(AutotunerParser.ExpressionContext ctx) {
+
+            }
+
+            @Override
             public void visitTerminal(TerminalNode terminalNode) {
                 System.out.println(terminalNode);
             }

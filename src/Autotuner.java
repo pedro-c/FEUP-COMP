@@ -66,6 +66,26 @@ public class Autotuner {
             }
 
             @Override
+            public void enterStep(AutotunerParser.StepContext ctx) {
+
+            }
+
+            @Override
+            public void exitStep(AutotunerParser.StepContext ctx) {
+
+            }
+
+            @Override
+            public void enterReference(AutotunerParser.ReferenceContext ctx) {
+
+            }
+
+            @Override
+            public void exitReference(AutotunerParser.ReferenceContext ctx) {
+
+            }
+
+            @Override
             public void visitTerminal(TerminalNode terminalNode) {
                 System.out.println(terminalNode);
             }

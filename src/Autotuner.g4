@@ -9,9 +9,9 @@ pragmaTuner: '#' WHITESPACE* 'pragma' WHITESPACE+ 'tuner' WHITESPACE+;
 tunerId: EXPLORE | MAX_ABS_ERROR;
 
 expression:
-    step | reference | VARIABLE | DigitSequence ;
+    step | reference | VARIABLE | NUMBER ;
 
-step: VARIABLE OPENPAR DigitSequence COMMA DigitSequence CLOSEPAR;
+step: VARIABLE OPENPAR NUMBER COMMA NUMBER CLOSEPAR;
 
 reference: REFERENCE OPENPAR VARIABLE ASSIGN DigitSequence;
 
@@ -29,6 +29,9 @@ OPENPAR: '(';
 CLOSEPAR: ')';
 COMMA: ',';
 ASSIGN: '=';
+
+NUMBER:
+    DigitSequence;
 
 /* C Parser */
 

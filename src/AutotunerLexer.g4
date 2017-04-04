@@ -1,16 +1,12 @@
-grammar Autotuner;
+lexer grammar AutotunerLexer;
 
-/* Parser Rules */
-
-pragma: PRAGMA_TUNER TUNER_ID WHITESPACE* NEWLINE;
-
-
-/* Lexer Rules */
 PRAGMA_TUNER: '#' WHITESPACE* 'pragma' WHITESPACE+ 'tuner' WHITESPACE+;
 
 TUNER_ID
     : EXPLORE
     | MAX_ABS_ERROR;
+    //adicionar os nomes dos pragmas que fizermos
+
 
 EXPLORE
     : 'explore' WHITESPACE+ VARIABLE WHITESPACE*
@@ -23,16 +19,13 @@ MAX_ABS_ERROR
 WHITESPACE : ' ' -> skip;
 NEWLINE : '\n' -> skip;
 
-
-/* C Parser */
-
-VARIABLE :
-   IdentifierNondigit (IdentifierNondigit | Digit)*;
+VARIABLE
+    : IdentifierNonDigit (IdentifierNonDigit | Digit)*;
 
 fragment DigitSequence : Digit+;
 
-fragment IdentifierNondigit :
-    Nondigit | UniversalCharacterName;
+fragment IdentifierNonDigit
+    : Nondigit | UniversalCharacterName;
 
 fragment Nondigit : [a-zA-Z_];
 
@@ -45,4 +38,3 @@ fragment HexQuad :
     HexadecimalDigit HexadecimalDigit HexadecimalDigit HexadecimalDigit;
 
 fragment HexadecimalDigit: [0-9a-fA-F];
-

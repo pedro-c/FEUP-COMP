@@ -1,4 +1,4 @@
-// Generated from /home/bernardo/Documents/FEUP-COMP/src/Autotuner.g4 by ANTLR 4.6
+// Generated from /Users/Francisca/Desktop/MIEIC/3Ano/2semestre/SDIS/testeANTLR/src/AutotunerLexer.g4 by ANTLR 4.6
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -24,7 +24,7 @@ public class AutotunerLexer extends Lexer {
 
 	public static final String[] ruleNames = {
 		"PRAGMA_TUNER", "TUNER_ID", "EXPLORE", "MAX_ABS_ERROR", "WHITESPACE", 
-		"NEWLINE", "VARIABLE", "DigitSequence", "IdentifierNondigit", "Nondigit", 
+		"NEWLINE", "VARIABLE", "DigitSequence", "IdentifierNonDigit", "Nondigit", 
 		"Digit", "UniversalCharacterName", "HexQuad", "HexadecimalDigit"
 	};
 
@@ -75,7 +75,7 @@ public class AutotunerLexer extends Lexer {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Autotuner.g4"; }
+	public String getGrammarFileName() { return "AutotunerLexer.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

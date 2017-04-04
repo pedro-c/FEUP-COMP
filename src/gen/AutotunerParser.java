@@ -1,4 +1,4 @@
-// Generated from /home/bernardo/Documents/FEUP-COMP/src/Autotuner.g4 by ANTLR 4.6
+// Generated from /Users/Francisca/Desktop/MIEIC/3Ano/2semestre/SDIS/testeANTLR/src/AutotunerParser.g4 by ANTLR 4.6
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -19,9 +19,9 @@ public class AutotunerParser extends Parser {
 		PRAGMA_TUNER=1, TUNER_ID=2, EXPLORE=3, MAX_ABS_ERROR=4, WHITESPACE=5, 
 		NEWLINE=6, VARIABLE=7;
 	public static final int
-		RULE_pragma = 0;
+		RULE_pragma = 0, RULE_startpoint = 1;
 	public static final String[] ruleNames = {
-		"pragma"
+		"pragma", "startpoint"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -65,7 +65,7 @@ public class AutotunerParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Autotuner.g4"; }
+	public String getGrammarFileName() { return "AutotunerParser.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -82,8 +82,6 @@ public class AutotunerParser extends Parser {
 	}
 	public static class PragmaContext extends ParserRuleContext {
 		public TerminalNode PRAGMA_TUNER() { return getToken(AutotunerParser.PRAGMA_TUNER, 0); }
-		public TerminalNode TUNER_ID() { return getToken(AutotunerParser.TUNER_ID, 0); }
-		public TerminalNode NEWLINE() { return getToken(AutotunerParser.NEWLINE, 0); }
 		public List<TerminalNode> WHITESPACE() { return getTokens(AutotunerParser.WHITESPACE); }
 		public TerminalNode WHITESPACE(int i) {
 			return getToken(AutotunerParser.WHITESPACE, i);
@@ -94,11 +92,11 @@ public class AutotunerParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_pragma; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AutotunerListener ) ((AutotunerListener)listener).enterPragma(this);
+			if ( listener instanceof AutotunerParserListener ) ((AutotunerParserListener)listener).enterPragma(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AutotunerListener ) ((AutotunerListener)listener).exitPragma(this);
+			if ( listener instanceof AutotunerParserListener ) ((AutotunerParserListener)listener).exitPragma(this);
 		}
 	}
 
@@ -109,26 +107,64 @@ public class AutotunerParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(2);
+			setState(4);
 			match(PRAGMA_TUNER);
-			setState(3);
-			match(TUNER_ID);
-			setState(7);
+			setState(8);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==WHITESPACE) {
 				{
 				{
-				setState(4);
+				setState(5);
 				match(WHITESPACE);
 				}
 				}
-				setState(9);
+				setState(10);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(10);
-			match(NEWLINE);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class StartpointContext extends ParserRuleContext {
+		public PragmaContext pragma() {
+			return getRuleContext(PragmaContext.class,0);
+		}
+		public TerminalNode EOF() { return getToken(AutotunerParser.EOF, 0); }
+		public StartpointContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_startpoint; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AutotunerParserListener ) ((AutotunerParserListener)listener).enterStartpoint(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AutotunerParserListener ) ((AutotunerParserListener)listener).exitStartpoint(this);
+		}
+	}
+
+	public final StartpointContext startpoint() throws RecognitionException {
+		StartpointContext _localctx = new StartpointContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_startpoint);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(11);
+			pragma();
+			setState(12);
+			match(EOF);
 			}
 		}
 		catch (RecognitionException re) {
@@ -143,11 +179,11 @@ public class AutotunerParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\t\17\4\2\t\2\3\2"+
-		"\3\2\3\2\7\2\b\n\2\f\2\16\2\13\13\2\3\2\3\2\3\2\2\2\3\2\2\2\16\2\4\3\2"+
-		"\2\2\4\5\7\3\2\2\5\t\7\4\2\2\6\b\7\7\2\2\7\6\3\2\2\2\b\13\3\2\2\2\t\7"+
-		"\3\2\2\2\t\n\3\2\2\2\n\f\3\2\2\2\13\t\3\2\2\2\f\r\7\b\2\2\r\3\3\2\2\2"+
-		"\3\t";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\t\21\4\2\t\2\4\3"+
+		"\t\3\3\2\3\2\7\2\t\n\2\f\2\16\2\f\13\2\3\3\3\3\3\3\3\3\2\2\4\2\4\2\2\17"+
+		"\2\6\3\2\2\2\4\r\3\2\2\2\6\n\7\3\2\2\7\t\7\7\2\2\b\7\3\2\2\2\t\f\3\2\2"+
+		"\2\n\b\3\2\2\2\n\13\3\2\2\2\13\3\3\2\2\2\f\n\3\2\2\2\r\16\5\2\2\2\16\17"+
+		"\7\2\2\3\17\5\3\2\2\2\3\n";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

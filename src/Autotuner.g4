@@ -2,33 +2,42 @@ grammar Autotuner;
 
 /* Parser Rules */
 
-pragma: pragmaTuner tunerId expression* NEWLINE;
+start: (comment | pragma | VARIABLE | DISCARD);
 
-pragmaTuner: '#' WHITESPACE* 'pragma' WHITESPACE+ 'tuner' WHITESPACE+;
+pragma: PRAGMA_TUNER WHITESPACE tunerId expression* NEWLINE;
+
 
 tunerId: EXPLORE | MAX_ABS_ERROR;
 
-expression:
-    step | reference | VARIABLE | NUMBER ;
+expression: WHITESPACE (step | reference | VARIABLE | NUMBER);
 
 step: VARIABLE OPENPAR NUMBER COMMA NUMBER CLOSEPAR;
 
-reference: REFERENCE OPENPAR VARIABLE ASSIGN DigitSequence;
+reference: REFERENCE OPENPAR VARIABLE ASSIGN NUMBER;
+
+comment: LINE_CMT | BLOCK_CMT;
 
 /* Lexer Rules */
 
-WHITESPACE : ' ' -> skip;
-NEWLINE : '\n' -> skip;
-
+TUNER: 'tuner';
 EXPLORE: 'explore';
 MAX_ABS_ERROR: 'max_abs_error';
-
 REFERENCE: 'reference';
-
 OPENPAR: '(';
 CLOSEPAR: ')';
 COMMA: ',';
 ASSIGN: '=';
+SLASH: '/';
+STAR: '*';
+DISCARD: .+? -> skip;
+WHITESPACE: [ \t]+ -> skip;          // At least one whitespace and skip it
+NEWLINE: [\n]+ -> skip;         // Mandatory newline and skip it
+
+LINE_CMT: SLASH SLASH DISCARD NEWLINE;
+BLOCK_CMT: SLASH STAR DISCARD STAR SLASH;
+
+PRAGMA_TUNER: PRAGMA WHITESPACE TUNER;
+PRAGMA: '#' WHITESPACE 'pragma';
 
 NUMBER:
     DigitSequence;

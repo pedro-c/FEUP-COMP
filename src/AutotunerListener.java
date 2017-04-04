@@ -7,6 +7,16 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface AutotunerListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link AutotunerParser#start}.
+	 * @param ctx the parse tree
+	 */
+	void enterStart(AutotunerParser.StartContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AutotunerParser#start}.
+	 * @param ctx the parse tree
+	 */
+	void exitStart(AutotunerParser.StartContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AutotunerParser#pragma}.
 	 * @param ctx the parse tree
 	 */
@@ -16,16 +26,6 @@ public interface AutotunerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPragma(AutotunerParser.PragmaContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AutotunerParser#pragmaTuner}.
-	 * @param ctx the parse tree
-	 */
-	void enterPragmaTuner(AutotunerParser.PragmaTunerContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AutotunerParser#pragmaTuner}.
-	 * @param ctx the parse tree
-	 */
-	void exitPragmaTuner(AutotunerParser.PragmaTunerContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AutotunerParser#tunerId}.
 	 * @param ctx the parse tree
@@ -66,4 +66,14 @@ public interface AutotunerListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitReference(AutotunerParser.ReferenceContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AutotunerParser#comment}.
+	 * @param ctx the parse tree
+	 */
+	void enterComment(AutotunerParser.CommentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AutotunerParser#comment}.
+	 * @param ctx the parse tree
+	 */
+	void exitComment(AutotunerParser.CommentContext ctx);
 }

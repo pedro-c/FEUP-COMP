@@ -15,6 +15,18 @@ public class AutotunerBaseListener implements AutotunerListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStart(AutotunerParser.StartContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStart(AutotunerParser.StartContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPragma(AutotunerParser.PragmaContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -22,18 +34,6 @@ public class AutotunerBaseListener implements AutotunerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPragma(AutotunerParser.PragmaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPragmaTuner(AutotunerParser.PragmaTunerContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPragmaTuner(AutotunerParser.PragmaTunerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -82,6 +82,18 @@ public class AutotunerBaseListener implements AutotunerListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitReference(AutotunerParser.ReferenceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterComment(AutotunerParser.CommentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComment(AutotunerParser.CommentContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

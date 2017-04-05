@@ -1,4 +1,5 @@
-// Generated from /Users/Francisca/Desktop/MIEIC/3Ano/2semestre/SDIS/testeANTLR/src/AutotunerParser.g4 by ANTLR 4.6
+// Generated from /home/bernardo/Documents/FEUP-COMP/src/AutotunerParser.g4 by ANTLR 4.6
+package gen;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -27,13 +28,49 @@ public class AutotunerParserBaseListener implements AutotunerParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStartpoint(AutotunerParser.StartpointContext ctx) { }
+	@Override public void enterTuner_id(AutotunerParser.Tuner_idContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStartpoint(AutotunerParser.StartpointContext ctx) { }
+	@Override public void exitTuner_id(AutotunerParser.Tuner_idContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExplore(AutotunerParser.ExploreContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExplore(AutotunerParser.ExploreContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMax_abs_error(AutotunerParser.Max_abs_errorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMax_abs_error(AutotunerParser.Max_abs_errorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStart(AutotunerParser.StartContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStart(AutotunerParser.StartContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -1,4 +1,5 @@
-// Generated from /Users/Francisca/Desktop/MIEIC/3Ano/2semestre/SDIS/testeANTLR/src/AutotunerParser.g4 by ANTLR 4.6
+// Generated from /home/bernardo/Documents/FEUP-COMP/src/AutotunerParser.g4 by ANTLR 4.6
+package gen;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -17,13 +18,43 @@ public interface AutotunerParserListener extends ParseTreeListener {
 	 */
 	void exitPragma(AutotunerParser.PragmaContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AutotunerParser#startpoint}.
+	 * Enter a parse tree produced by {@link AutotunerParser#tuner_id}.
 	 * @param ctx the parse tree
 	 */
-	void enterStartpoint(AutotunerParser.StartpointContext ctx);
+	void enterTuner_id(AutotunerParser.Tuner_idContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AutotunerParser#startpoint}.
+	 * Exit a parse tree produced by {@link AutotunerParser#tuner_id}.
 	 * @param ctx the parse tree
 	 */
-	void exitStartpoint(AutotunerParser.StartpointContext ctx);
+	void exitTuner_id(AutotunerParser.Tuner_idContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AutotunerParser#explore}.
+	 * @param ctx the parse tree
+	 */
+	void enterExplore(AutotunerParser.ExploreContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AutotunerParser#explore}.
+	 * @param ctx the parse tree
+	 */
+	void exitExplore(AutotunerParser.ExploreContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AutotunerParser#max_abs_error}.
+	 * @param ctx the parse tree
+	 */
+	void enterMax_abs_error(AutotunerParser.Max_abs_errorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AutotunerParser#max_abs_error}.
+	 * @param ctx the parse tree
+	 */
+	void exitMax_abs_error(AutotunerParser.Max_abs_errorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AutotunerParser#start}.
+	 * @param ctx the parse tree
+	 */
+	void enterStart(AutotunerParser.StartContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AutotunerParser#start}.
+	 * @param ctx the parse tree
+	 */
+	void exitStart(AutotunerParser.StartContext ctx);
 }

@@ -1,6 +1,6 @@
 lexer grammar AutotunerLexer;
 
-PRAGMA_TUNER: '#' WHITESPACE* 'pragma' WHITESPACE* 'tuner';
+PRAGMA_TUNER: '#' WHITESPACE* 'pragma' WHITESPACE+ 'tuner' WHITESPACE+;
 EXPLORE: 'explore';
 MAX_ABS_ERROR: 'max_abs_error';
 

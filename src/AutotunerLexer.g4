@@ -18,6 +18,9 @@ LEFT_PARENTHESIS: '(';
 RIGHT_PARENTHESIS: ')';
 COMMA: ',';
 
+LEFT_BRACKET: '{';
+RIGHT_BRACKET: '}';
+
 NONUMBER: [a-zA-Z_];
 HEXADIGIT: [0-9a-fA-F];
 SU: '\\u';

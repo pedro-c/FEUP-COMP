@@ -2,6 +2,7 @@ lexer grammar AutotunerLexer;
 
 PRAGMA_TUNER: '#' WHITESPACE* 'pragma' WHITESPACE+ 'tuner' WHITESPACE+;
 EXPLORE: 'explore';
+REFERENCE: 'reference';
 MAX_ABS_ERROR: 'max_abs_error';
 
 NUMBER: DIGIT+;
@@ -17,15 +18,15 @@ NEWLINE : '\n' -> skip;
 LEFT_PARENTHESIS: '(';
 RIGHT_PARENTHESIS: ')';
 COMMA: ',';
-
 LEFT_BRACKET: '{';
 RIGHT_BRACKET: '}';
+ASSIGNMENT: '=';
 
+TYPE: 'char' | 'long' | 'int' | 'short' | 'unsigned' | 'signed' | 'float' | 'double';
+ANY_CHAR: .;
 NONUMBER: [a-zA-Z_];
 HEXADIGIT: [0-9a-fA-F];
 SU: '\\u';
 BU: '\\U';
-
-ANYCHAR: .;
 
 fragment DIGIT: [0-9];

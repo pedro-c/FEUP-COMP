@@ -1,22 +1,52 @@
 import gen.AutotunerParser;
 import gen.AutotunerParserBaseVisitor;
-import javafx.util.Pair;
+
+import java.util.HashMap;
 
 public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
+    HashMap<String, ExploreInfo> exploreHashMap = new HashMap<String, ExploreInfo>();
 
-    Pair<String, Double> references;
-    String exploreVariable;
+    @Override
+    public T visitPragma(AutotunerParser.PragmaContext ctx) {
+        System.out.println("Entered pragma!");
+        return visitChildren(ctx);
+    }
 
     @Override
     public T visitExplore(AutotunerParser.ExploreContext ctx) {
-        references = new Pair<>(ctx.VARIABLE().getText(), Double.parseDouble(ctx.NUMBER(2).getText()));
-        exploreVariable = ctx.VARIABLE().getText();
+        String variable = ctx.VARIABLE(0).getText();
+        String secondVariable = ctx.VARIABLE(1).getText();
+
+        double min = Double.parseDouble(ctx.NUMBER(0).getText());
+        double max = Double.parseDouble(ctx.NUMBER(1).getText());
+        double reference = Double.parseDouble(ctx.NUMBER(2).getText());
+
+        if (!variable.equals(secondVariable))
+            System.err.println("Explore cannot have two different variables in its declaration.");
+        else
+            exploreHashMap.put(variable, new ExploreInfo(reference, min, max));
+
         return visitChildren(ctx);
     }
 
     @Override
     public T visitMax_abs_error(AutotunerParser.Max_abs_errorContext ctx) {
-        Condition condition = new MaxAbsError(references.getValue(), Double.parseDouble(ctx.NUMBER().getText()));
+        return visitChildren(ctx);
+    }
+
+    public T visitType(AutotunerParser.TypeContext ctx) {
+        ctx.TYPE().forEach(System.out::print);
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitStart(AutotunerParser.StartContext ctx) {
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitVariable(AutotunerParser.VariableContext ctx) {
+        System.out.println(exploreHashMap.get(ctx.getText()));
 
         return visitChildren(ctx);
     }

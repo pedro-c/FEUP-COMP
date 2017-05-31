@@ -26,4 +26,6 @@ HEXADIGIT: [0-9a-fA-F];
 SU: '\\u';
 BU: '\\U';
 
+ANYCHAR: .;
+
 fragment DIGIT: [0-9];

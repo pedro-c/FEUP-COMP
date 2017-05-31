@@ -1,11 +1,11 @@
 public class StopWatch {
     private long start = 0;
 
-    public void start() {
+    void start() {
         start = System.currentTimeMillis();
     }
 
-    public long stop() {
+    long stop() {
         return System.currentTimeMillis() - start;
     }
 }

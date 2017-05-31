@@ -11,4 +11,4 @@ max_abs_error: MAX_ABS_ERROR VARIABLE NUMBER;
 
 
 //Parser init
-start: pragma;
+start: (pragma | ANYCHAR)*;

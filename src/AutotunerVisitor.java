@@ -4,7 +4,7 @@ import gen.AutotunerParserBaseVisitor;
 import java.util.HashMap;
 
 public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
-    HashMap<String, ExploreInfo> exploreHashMap = new HashMap<String, ExploreInfo>();
+    HashMap<String, ExploreInfo> exploreHashMap = new HashMap<>();
 
     @Override
     public T visitPragma(AutotunerParser.PragmaContext ctx) {
@@ -34,11 +34,6 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
         return visitChildren(ctx);
     }
 
-    public T visitType(AutotunerParser.TypeContext ctx) {
-        ctx.TYPE().forEach(System.out::print);
-        return visitChildren(ctx);
-    }
-
     @Override
     public T visitStart(AutotunerParser.StartContext ctx) {
         return visitChildren(ctx);
@@ -46,7 +41,7 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
 
     @Override
     public T visitVariable(AutotunerParser.VariableContext ctx) {
-        System.out.println(exploreHashMap.get(ctx.getText()));
+        System.out.println(ctx.getText() + ": " + exploreHashMap.get(ctx.getText()));
 
         return visitChildren(ctx);
     }

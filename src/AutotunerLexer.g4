@@ -5,8 +5,6 @@ EXPLORE: 'explore';
 REFERENCE: 'reference';
 MAX_ABS_ERROR: 'max_abs_error';
 
-/*IGNORE: (KEYWORD | SPECIAL_CHARS);*/
-
 KEYWORD
    : TYPE
    | 'auto'
@@ -35,15 +33,32 @@ KEYWORD
 
 
 NUMBER: DIGIT+;
-VARIABLE: IDENTIFIER (IDENTIFIER | NUMBER)*;
+IDENTIFIER: ID_CHAR (ID_CHAR | NUMBER)*;
 
-IDENTIFIER: NONUMBER | UNIVERSAL_CHAR;
+ID_CHAR: NONUMBER | UNIVERSAL_CHAR;
 UNIVERSAL_CHAR: (SU HEX_QUAD) | (BU HEX_QUAD HEX_QUAD);
 HEX_QUAD: HEXADIGIT HEXADIGIT HEXADIGIT HEXADIGIT;
 
 WHITESPACE : ' ' ->skip;
 NEWLINE : '\n' -> skip;
 
+/* Comparison */
+EQUAL_TO: '==';
+NOT_EQUAL_TO: '!=';
+LESS_OR_EQUAL: '<=';
+GREATER_OR_EQUAL: '>=';
+LESS_THAN: '<';
+GREATER_THAN: '>';
+
+/* Logical */
+NOT: '!';
+AND: '&&';
+OR: '||';
+BIT_AND: '&';
+BIT_OR: '!';
+BIT_XOR: '^';
+
+/* Other Special Chars */
 LEFT_PARENTHESIS: '(';
 RIGHT_PARENTHESIS: ')';
 COMMA: ',';
@@ -55,13 +70,12 @@ ASSIGNMENT: '=';
 SINGLE_QUOTE: '\'';
 DOUBLE_QUOTE: '"';
 QUESTION_MARK: '?';
-EXCLAMATION_MARK: '!';
 COLON: ':';
 SEMI_COLON: ';';
 PLUS: '+';
-MULTIPLICATION: '*';
-LEFT_ARROW: '<';
-RIGHT_ARROW: '>';
+MINUS: '-';
+MULT: '*';
+DIV: '/';
 
 NONUMBER: [a-zA-Z_];
 HEXADIGIT: [0-9a-fA-F];
@@ -69,21 +83,6 @@ SU: '\\u';
 BU: '\\U';
 
 fragment DIGIT: [0-9];
-
-fragment SPECIAL_CHARS
-    : KEYWORD
-    | LEFT_BRACKET
-    | RIGHT_BRACKET
-    | LEFT_PARENTHESIS
-    | RIGHT_PARENTHESIS
-    | LEFT_SQUARE_BRACKET
-    | RIGHT_SQUARE_BRACKET
-    | SINGLE_QUOTE
-    | DOUBLE_QUOTE
-    | QUESTION_MARK
-    | EXCLAMATION_MARK
-    | COLON
-    | SEMI_COLON;
 
 fragment TYPE
     : 'char'
@@ -95,4 +94,3 @@ fragment TYPE
     | 'float'
     | 'double'
     | 'void';
-

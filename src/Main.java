@@ -11,6 +11,6 @@ public class Main {
         AutotunerParser parser = new AutotunerParser(new CommonTokenStream(lexer));
 
         AutotunerVisitor autotunerVisitor = new AutotunerVisitor<>();
-        autotunerVisitor.visit(parser.start());
+        autotunerVisitor.visit(parser.main());
     }
 }

@@ -14,8 +14,9 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
 
     @Override
     public T visitExplore(AutotunerParser.ExploreContext ctx) {
-        String variable = ctx.VARIABLE(0).getText();
-        String secondVariable = ctx.VARIABLE(1).getText();
+        System.out.println(ctx.toString());
+        String variable = ctx.IDENTIFIER(0).getText();
+        String secondVariable = ctx.IDENTIFIER(1).getText();
 
         double min = Double.parseDouble(ctx.NUMBER(0).getText());
         double max = Double.parseDouble(ctx.NUMBER(1).getText());
@@ -31,11 +32,6 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
 
     @Override
     public T visitMax_abs_error(AutotunerParser.Max_abs_errorContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public T visitStart(AutotunerParser.StartContext ctx) {
         return visitChildren(ctx);
     }
 

@@ -18,9 +18,9 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
         String variable = ctx.IDENTIFIER(0).getText();
         String secondVariable = ctx.IDENTIFIER(1).getText();
 
-        double min = Double.parseDouble(ctx.NUMBER(0).getText());
-        double max = Double.parseDouble(ctx.NUMBER(1).getText());
-        double reference = Double.parseDouble(ctx.NUMBER(2).getText());
+        double min = Double.parseDouble(ctx.MIN.getText());
+        double max = Double.parseDouble(ctx.MAX.getText());
+        double reference = Double.parseDouble(ctx.REF.getText());
 
         if (!variable.equals(secondVariable))
             System.err.println("Explore cannot have two different variables in its declaration.");

@@ -20,3 +20,14 @@ The project consists of:
   * Modifying the code to include the instrumentation/validation code
   * Re-running the program multiple times
   * Report the best version
+
+Another example would be:
+
+```
+#pragma tuner explore STEP(1, 10) reference(STEP=1)
+for (int i = 0; i < N; i += STEP) {
+    acc += buf[i];
+}
+acc *= STEP;
+#pragma tuner is_even acc
+```

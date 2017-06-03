@@ -9,7 +9,7 @@ public class ProgramBuilder {
         if (variables.peek().hasNext())
             variables.peek().next();
         else if (!variables.isEmpty())
-            variables.poll();
+            variables.poll().next();
     }
 
     boolean hasNext() {

@@ -15,6 +15,9 @@ public class Main {
         AutotunerVisitor autotunerVisitor = new AutotunerVisitor<>(programBuilder);
         autotunerVisitor.visit(parser.main());
 
+        //Reference
+        System.out.println(programBuilder.toString());
+
         while (programBuilder.hasNext()) {
             programBuilder.next();
             System.out.println(programBuilder.toString());

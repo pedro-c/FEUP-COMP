@@ -58,6 +58,17 @@ BIT_AND: '&';
 BIT_OR: '!';
 BIT_XOR: '^';
 
+/* Other Operators */
+INCREMENT: '++';
+DECREMENT: '--';
+PLUS_EQ: '+=';
+MINUS_EQ: '-=';
+MULT_EQ: '*=';
+DIV_EQ: '/=';
+ARROW: '->';
+LEFT_SHIFT: '<<';
+RIGHT_SHIFT: '>>';
+
 /* Other Special Chars */
 LEFT_PARENTHESIS: '(';
 RIGHT_PARENTHESIS: ')';

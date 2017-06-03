@@ -1,64 +1,69 @@
 import gen.AutotunerParser;
 import gen.AutotunerParserBaseVisitor;
-import sun.misc.IOUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
-    private HashMap<String, ExploreInfo> exploreHashMap = new HashMap<>();
+    private HashMap<String, Variable> variablesHashMap = new HashMap<>();
+    private ProgramBuilder programBuilder;
 
-    @Override
-    public T visitPragma(AutotunerParser.PragmaContext ctx) {
-        System.out.println("Entered pragma!");
-        return visitChildren(ctx);
+    AutotunerVisitor(ProgramBuilder programBuilder) {
+        super();
+        this.programBuilder = programBuilder;
     }
 
     @Override
     public T visitExplore(AutotunerParser.ExploreContext ctx) {
-        System.out.println(ctx.toString());
-        String variable = ctx.IDENTIFIER(0).getText();
-        String secondVariable = ctx.IDENTIFIER(1).getText();
+        String varName = ctx.IDENTIFIER(0).getText();
+        String secondVarName = ctx.IDENTIFIER(1).getText();
 
-        double min = Double.parseDouble(ctx.MIN.getText());
-        double max = Double.parseDouble(ctx.MAX.getText());
-        double reference = Double.parseDouble(ctx.REF.getText());
+        int min = Integer.parseInt(ctx.MIN.getText());
+        int max = Integer.parseInt(ctx.MAX.getText());
+        int reference = Integer.parseInt(ctx.REF.getText());
 
-        if (!variable.equals(secondVariable))
-            System.err.println("Explore cannot have two different variables in its declaration.");
-        else
-            exploreHashMap.put(variable, new ExploreInfo(reference, min, max));
+        if (!varName.equals(secondVarName)) {
+            try {
+                throw new Exception("Explore cannot have two different variables in its declaration.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Variable variable = new Variable(varName, reference, min, max);
+            variablesHashMap.put(varName, variable);
+            programBuilder.addVariable(variable);
+        }
 
         return visitChildren(ctx);
     }
 
     @Override
     public T visitMax_abs_error(AutotunerParser.Max_abs_errorContext ctx) {
+        programBuilder.append(new StaticCode("/*max_abs_error*/")); //FIXME
         return visitChildren(ctx);
     }
 
     @Override
     public T visitVariable(AutotunerParser.VariableContext ctx) {
-        System.out.println(ctx.getText() + ": " + exploreHashMap.get(ctx.getText()));
+        String variableName = ctx.getText();
+        Variable variable = variablesHashMap.get(variableName);
+
+        if (variable != null)
+            programBuilder.append(variable);
+        else
+            programBuilder.append(new StaticCode(variableName));
 
         return visitChildren(ctx);
     }
 
-    public void printExploreHashMap(){
-        for (HashMap.Entry<String, ExploreInfo> entry : exploreHashMap.entrySet()) {
-
-            System.out.println("VAR: " + entry.getKey());
-            System.out.println("VAL: " + entry.getValue());
-
-        }
+    @Override
+    public T visitIgnore(AutotunerParser.IgnoreContext ctx) {
+        programBuilder.append(new StaticCode(ctx.getText()));
+        return visitChildren(ctx);
     }
 
-    public HashMap<String, ExploreInfo> getExploreMap(){
-        return exploreHashMap;
+    public T visitKeyword(AutotunerParser.KeywordContext ctx) {
+        programBuilder.append(new StaticCode(ctx.getText()));
+        return visitChildren(ctx);
     }
 
     /* public void iterateExplore() throws FileNotFoundException {
@@ -66,7 +71,7 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
         String content = new Scanner(new File("test/explore.c")).useDelimiter("\\Z").next();
         System.out.println(content);
 
-        for (HashMap.Entry<String, ExploreInfo> entry : exploreHashMap.entrySet()) {
+        for (HashMap.Entry<String, ExploreInfo> entry : variablesHashMap.entrySet()) {
 
             double step = entry.getValue().getReference();
             double value = entry.getValue().getMin();

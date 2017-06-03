@@ -11,7 +11,9 @@ explore: EXPLORE STEP=IDENTIFIER LEFT_PARENTHESIS MIN=NUMBER COMMA MAX=NUMBER RI
 max_abs_error: MAX_ABS_ERROR IDENTIFIER NUMBER;
 
 //Parser init
-main: (pragma | KEYWORD | variable | ignore)*? EOF;
+main: (pragma | keyword | variable | ignore)*? EOF;
+
+keyword: KEYWORD;
 
 variable: IDENTIFIER;
 
@@ -30,6 +32,15 @@ specialChar
     | BIT_AND
     | BIT_OR
     | BIT_XOR
+    | PLUS_EQ
+    | MINUS_EQ
+    | MULT_EQ
+    | DIV_EQ
+    | INCREMENT
+    | DECREMENT
+    | ARROW
+    | LEFT_SHIFT
+    | RIGHT_SHIFT
     | PLUS
     | MINUS
     | MULT

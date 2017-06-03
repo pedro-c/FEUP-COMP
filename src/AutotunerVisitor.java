@@ -15,6 +15,7 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
     @Override
     public T visitExplore(AutotunerParser.ExploreContext ctx) {
         System.out.println(ctx.toString());
+        System.out.print(ctx.IDENTIFIER());
         String variable = ctx.IDENTIFIER(0).getText();
         String secondVariable = ctx.IDENTIFIER(1).getText();
 
@@ -40,5 +41,14 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
         System.out.println(ctx.getText() + ": " + exploreHashMap.get(ctx.getText()));
 
         return visitChildren(ctx);
+    }
+
+    public void printExploreHashMap(){
+        for (HashMap.Entry<String, ExploreInfo> entry : exploreHashMap.entrySet()) {
+
+            System.out.println(entry.getKey());
+            System.out.println(entry.getValue());
+
+        }
     }
 }

@@ -16,7 +16,7 @@ int main() {
         accu += buf[i];
     }
     accu *= var;
-    #pragma tuner max_abs_error accu 10
+    #pragma tuner is_even accu
 
     return 0;
 }

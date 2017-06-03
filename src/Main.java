@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String... args) throws IOException {
-        AutotunerLexer lexer = new AutotunerLexer(CharStreams.fromFileName("test/explore.c"));
+        AutotunerLexer lexer = new AutotunerLexer(CharStreams.fromFileName("test/test2.c"));
         AutotunerParser parser = new AutotunerParser(new CommonTokenStream(lexer));
 
         ProgramBuilder programBuilder = new ProgramBuilder();

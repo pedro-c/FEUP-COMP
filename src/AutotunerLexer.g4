@@ -4,6 +4,7 @@ PRAGMA_TUNER: '#' WHITESPACE* 'pragma' WHITESPACE+ 'tuner' WHITESPACE+;
 EXPLORE: 'explore';
 REFERENCE: 'reference';
 MAX_ABS_ERROR: 'max_abs_error';
+IS_EVEN: 'is_even';
 
 KEYWORD
    : TYPE

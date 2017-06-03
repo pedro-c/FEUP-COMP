@@ -61,28 +61,17 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
         return visitChildren(ctx);
     }
 
+    @Override
     public T visitKeyword(AutotunerParser.KeywordContext ctx) {
         programBuilder.append(new StaticCode(ctx.getText()));
         return visitChildren(ctx);
     }
 
-    /* public void iterateExplore() throws FileNotFoundException {
+    @Override
+    public T visitIs_even(AutotunerParser.Is_evenContext ctx) {
+        String variable = ctx.IDENTIFIER().getText();
+        programBuilder.append(new StaticCode("assert(" + variable + " % 2 == 0);"));
 
-        String content = new Scanner(new File("test/explore.c")).useDelimiter("\\Z").next();
-        System.out.println(content);
-
-        for (HashMap.Entry<String, ExploreInfo> entry : variablesHashMap.entrySet()) {
-
-            double step = entry.getValue().getReference();
-            double value = entry.getValue().getMin();
-            double max = entry.getValue().getMax();
-            String tempCode = content;
-
-            for(int i = value; value < max; value += step){
-                tempCode.replace(entry.getKey(), entry.getValue());
-            }
-
-
-        }
-    } */
+        return visitChildren(ctx);
+    }
 }

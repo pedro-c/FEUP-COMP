@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class Main {
 
@@ -16,5 +17,6 @@ public class Main {
 
         autotunerVisitor.printExploreHashMap();
 
+        //autotunerVisitor.iterateExplore();
     }
 }

@@ -1,10 +1,16 @@
 import gen.AutotunerParser;
 import gen.AutotunerParserBaseVisitor;
+import sun.misc.IOUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
-    HashMap<String, ExploreInfo> exploreHashMap = new HashMap<>();
+    private HashMap<String, ExploreInfo> exploreHashMap = new HashMap<>();
 
     @Override
     public T visitPragma(AutotunerParser.PragmaContext ctx) {
@@ -15,7 +21,6 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
     @Override
     public T visitExplore(AutotunerParser.ExploreContext ctx) {
         System.out.println(ctx.toString());
-        System.out.print(ctx.IDENTIFIER());
         String variable = ctx.IDENTIFIER(0).getText();
         String secondVariable = ctx.IDENTIFIER(1).getText();
 
@@ -46,9 +51,33 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
     public void printExploreHashMap(){
         for (HashMap.Entry<String, ExploreInfo> entry : exploreHashMap.entrySet()) {
 
-            System.out.println(entry.getKey());
-            System.out.println(entry.getValue());
+            System.out.println("VAR: " + entry.getKey());
+            System.out.println("VAL: " + entry.getValue());
 
         }
     }
+
+    public HashMap<String, ExploreInfo> getExploreMap(){
+        return exploreHashMap;
+    }
+
+    /* public void iterateExplore() throws FileNotFoundException {
+
+        String content = new Scanner(new File("test/explore.c")).useDelimiter("\\Z").next();
+        System.out.println(content);
+
+        for (HashMap.Entry<String, ExploreInfo> entry : exploreHashMap.entrySet()) {
+
+            double step = entry.getValue().getReference();
+            double value = entry.getValue().getMin();
+            double max = entry.getValue().getMax();
+            String tempCode = content;
+
+            for(int i = value; value < max; value += step){
+                tempCode.replace(entry.getKey(), entry.getValue());
+            }
+
+
+        }
+    } */
 }

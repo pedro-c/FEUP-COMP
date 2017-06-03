@@ -1,11 +1,13 @@
+package code;
+
 public class Variable extends Code {
-    private String name;
+    private final String name;
     private int min;
     private int max;
     private int reference;
     private int currentValue;
 
-    Variable(String name, int reference, int min, int max) {
+    public Variable(String name, int reference, int min, int max) {
         this.name = name;
         this.reference = reference;
         this.min = min;
@@ -21,11 +23,11 @@ public class Variable extends Code {
             return Integer.toString(currentValue);
     }
 
-    boolean hasNext() {
+    public boolean hasNext() {
         return currentValue < max;
     }
 
-    void next() {
+    public void next() {
         currentValue++;
     }
 }

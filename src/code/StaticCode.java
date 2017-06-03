@@ -1,7 +1,9 @@
+package code;
+
 public class StaticCode extends Code {
     private String code;
 
-    StaticCode(String code) {
+    public StaticCode(String code) {
         super();
         this.code = code;
     }

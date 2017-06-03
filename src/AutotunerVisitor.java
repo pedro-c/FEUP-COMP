@@ -1,3 +1,5 @@
+import code.StaticCode;
+import code.Variable;
 import gen.AutotunerParser;
 import gen.AutotunerParserBaseVisitor;
 

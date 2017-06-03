@@ -12,12 +12,11 @@ max_abs_error: MAX_ABS_ERROR IDENTIFIER NUMBER;
 is_even: IS_EVEN IDENTIFIER;
 
 //Parser init
-main: (pragma | keyword | variable | ignore)*? EOF;
+main: include*? (pragma | keyword | variable | ignore)*? EOF;
 
+include: HASH INCLUDE DOUBLE_QUOTE LIBRARY DOUBLE_QUOTE;
 keyword: KEYWORD;
-
 variable: IDENTIFIER;
-
 ignore: specialChar | NUMBER;
 
 specialChar

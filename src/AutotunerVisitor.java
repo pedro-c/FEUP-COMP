@@ -74,4 +74,10 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
 
         return visitChildren(ctx);
     }
+
+    @Override
+    public T visitInclude(AutotunerParser.IncludeContext ctx) {
+        programBuilder.append(new StaticCode(ctx.getText() + "\n"));
+        return visitChildren(ctx);
+    }
 }

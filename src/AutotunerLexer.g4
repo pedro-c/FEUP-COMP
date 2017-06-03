@@ -1,10 +1,12 @@
 lexer grammar AutotunerLexer;
 
-PRAGMA_TUNER: '#' WHITESPACE* 'pragma' WHITESPACE+ 'tuner' WHITESPACE+;
+PRAGMA_TUNER: HASH WHITESPACE* 'pragma' WHITESPACE+ 'tuner' WHITESPACE+;
 EXPLORE: 'explore';
 REFERENCE: 'reference';
 MAX_ABS_ERROR: 'max_abs_error';
 IS_EVEN: 'is_even';
+
+INCLUDE: 'include ';
 
 KEYWORD
    : TYPE
@@ -35,6 +37,7 @@ KEYWORD
 
 NUMBER: DIGIT+;
 IDENTIFIER: ID_CHAR (ID_CHAR | NUMBER)*;
+LIBRARY: IDENTIFIER ('.' IDENTIFIER);
 
 ID_CHAR: NONUMBER | UNIVERSAL_CHAR;
 UNIVERSAL_CHAR: (SU HEX_QUAD) | (BU HEX_QUAD HEX_QUAD);
@@ -88,6 +91,8 @@ PLUS: '+';
 MINUS: '-';
 MULT: '*';
 DIV: '/';
+
+HASH: '#';
 
 NONUMBER: [a-zA-Z_];
 HEXADIGIT: [0-9a-fA-F];

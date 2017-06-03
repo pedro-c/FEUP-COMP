@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ProgramBuilder {
-    ArrayList<Code> codeArrayList = new ArrayList<>();
-    LinkedList<Variable> variables = new LinkedList<>();
+    private ArrayList<Code> codeArrayList = new ArrayList<>();
+    private LinkedList<Variable> variables = new LinkedList<>();
 
     void next() {
         if (variables.peek().hasNext())

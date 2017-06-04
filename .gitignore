@@ -3,7 +3,7 @@
 .idea/**/tasks.xml
 .idea/dictionaries
 .idea/*
-*.iml
+auto-tuner.iml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/

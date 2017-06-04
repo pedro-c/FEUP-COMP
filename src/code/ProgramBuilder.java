@@ -1,17 +1,15 @@
 package code;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
 
 public class ProgramBuilder {
-    private static final int MAX_ITERATIONS = 500;
+    private static final int MAX_ITERATIONS = 200;
     private final ArrayList<Code> codeArrayList = new ArrayList<>();
     private final LinkedList<Variable> variables = new LinkedList<>();
     private final ArrayList<MaxAbsError> absErrors = new ArrayList<>();
@@ -30,15 +28,8 @@ public class ProgramBuilder {
         final RandomAccessFile fifo;
         try {
             fifo = new RandomAccessFile(fifoFile, "r");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            wait.completeExceptionally(e);
-            return;
-        }
-
-        try {
             ProgramRunner.compile(toString(), FILE_NAME);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             wait.completeExceptionally(e);
             return;
@@ -47,6 +38,7 @@ public class ProgramBuilder {
         new Thread(() -> {
             try {
                 ProgramRunner.run(FILE_NAME);
+                wait.complete(null);
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
                 wait.completeExceptionally(e);
@@ -54,10 +46,10 @@ public class ProgramBuilder {
         }).start();
 
         try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.sleep(2000); //FIXME:
+        } catch (InterruptedException ignored) {
         }
+
         int var;
         int varIndex = 0;
         try {
@@ -66,8 +58,9 @@ public class ProgramBuilder {
                 absErrors.get(varIndex).setReferenceValue(var);
             }
         } catch (IOException ignored) {
+            /* When the FIFO has no more info to send. */
         }
-
+        
         try {
             fifo.close();
         } catch (IOException e) {
@@ -81,11 +74,10 @@ public class ProgramBuilder {
         fifoFile.createNewFile();
 
         CompletableFuture<Void> wait = new CompletableFuture<>();
-        Executors.newSingleThreadExecutor().submit(() -> runReference(fifoFile, wait));
+        runReference(fifoFile, wait);
         wait.get();
         fifoFile.delete();
 
-        System.out.println("Starting iterations.");
         while (hasNext()) {
             next();
             runIteration();
@@ -95,7 +87,7 @@ public class ProgramBuilder {
     private void runIteration() throws IOException, InterruptedException {
         ProgramRunner.compile(toString(), FILE_NAME);
 
-        int avg = 0;
+        double avg = 0;
         for (int i = 0; i < MAX_ITERATIONS; i++)
             avg += ProgramRunner.runAndBenchmark(FILE_NAME);
 

@@ -11,21 +11,21 @@ import java.util.concurrent.ExecutionException;
 public class ProgramBuilder {
     private static final int MAX_ITERATIONS = 500;
     private final ArrayList<Code> codeArrayList = new ArrayList<>();
-    private final LinkedList<Variable> variables = new LinkedList<>();
-    private final ArrayList<Variable> bestVariables = new ArrayList<>();
+    private final LinkedList<Variable> variableQueue = new LinkedList<>();
+    private final ArrayList<Variable> variables = new ArrayList<>();
     private final ArrayList<MaxAbsError> absErrors = new ArrayList<>();
     private static final String[] libraries = {"assert.h", "stdlib.h", "sys/types.h", "sys/stat.h", "fcntl.h", "unistd.h"};
     static final String FIFO_NAME = "fifo";
     private static final String FILE_NAME = "autotuner";
 
     private Variable next() {
-        Variable var = variables.peek();
+        Variable var = variableQueue.peek();
 
         if (var.hasNext()) {
             var.next();
-        } else if (!variables.isEmpty()) {
-            variables.poll().next();
-            var = variables.peek();
+        } else if (!variableQueue.isEmpty()) {
+            variableQueue.poll().next();
+            var = variableQueue.peek();
             if (var != null)
                 var.next();
         } else
@@ -110,7 +110,7 @@ public class ProgramBuilder {
     }
 
     private boolean hasNext() {
-        return !variables.isEmpty();
+        return !variableQueue.isEmpty();
     }
 
     public void append(Code code) {
@@ -118,8 +118,8 @@ public class ProgramBuilder {
     }
 
     public void addVariable(Variable variable) {
+        variableQueue.add(variable);
         variables.add(variable);
-        bestVariables.add(variable);
     }
 
     public void addMaxAbsError(MaxAbsError maxAbsError) {
@@ -145,13 +145,14 @@ public class ProgramBuilder {
     }
 
     public void printBestInformation() {
-        for (Variable var : bestVariables) {
+        for (Variable var : variables)
             System.out.println(var.getName() + ": " + var.getBestValue() + "\t" + var.getBestAvg());
-
-        }
     }
 
     public String getBestCode() {
+        for (Variable var : variables)
+            var.setBestValue();
+
         Assert.isBenchmark = false;
         return toString();
     }

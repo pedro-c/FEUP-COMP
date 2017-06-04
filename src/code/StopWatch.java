@@ -1,11 +1,13 @@
+package code;
+
 public class StopWatch {
-    private long start = 0;
+    private double start = 0;
 
     void start() {
         start = System.currentTimeMillis();
     }
 
-    long stop() {
+    double stop() {
         return System.currentTimeMillis() - start;
     }
 }

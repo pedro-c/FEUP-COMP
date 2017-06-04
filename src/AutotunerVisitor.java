@@ -1,3 +1,5 @@
+import code.MaxAbsError;
+import code.ProgramBuilder;
 import code.StaticCode;
 import code.Variable;
 import gen.AutotunerParser;
@@ -40,7 +42,9 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
 
     @Override
     public T visitMax_abs_error(AutotunerParser.Max_abs_errorContext ctx) {
-        programBuilder.append(new StaticCode("/*max_abs_error*/")); //FIXME
+        MaxAbsError maxAbsError = new MaxAbsError(ctx.IDENTIFIER().getText(), Integer.parseInt(ctx.NUMBER().getText()));
+        programBuilder.addMaxAbsError(maxAbsError);
+        programBuilder.append(maxAbsError);
         return visitChildren(ctx);
     }
 

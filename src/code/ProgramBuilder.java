@@ -24,8 +24,10 @@ public class ProgramBuilder {
         if (var.hasNext()) {
             var.next();
         } else if (!variables.isEmpty()) {
-            var.next();
-            variables.poll();
+            variables.poll().next();
+            var = variables.peek();
+            if (var != null)
+                var.next();
         } else
             var = null;
 
@@ -86,14 +88,16 @@ public class ProgramBuilder {
         wait.get();
         fifoFile.delete();
 
-        while (hasNext()) {
-            Variable curVar = next();
+        Variable curVar = next();
 
+        do {
             try {
                 curVar.updateBestBenchmark(runIteration());
+                System.out.println(curVar.getCurrentValue());
             } catch (AssertionError ignored) {
             }
-        }
+            curVar = next();
+        } while (hasNext());
     }
 
     private double runIteration() throws IOException, InterruptedException {

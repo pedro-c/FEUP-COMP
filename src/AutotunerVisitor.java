@@ -31,6 +31,13 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+        } else if (min >= max) {
+            try {
+                throw new Exception("Explore minimum must be lower than maximum.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             Variable variable = new Variable(varName, reference, min, max);
             variablesHashMap.put(varName, variable);

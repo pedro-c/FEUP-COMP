@@ -54,4 +54,8 @@ public class Variable extends Code {
     public String getName() {
         return name;
     }
+
+    public int getCurrentValue() {
+        return currentValue;
+    }
 }

@@ -14,6 +14,11 @@ import static code.ProgramBuilder.FILE_NAME;
 public class Main {
 
     public static void main(String... args) throws IOException, InterruptedException, ExecutionException {
+        if (args.length != 1) {
+            System.err.println("Autotuner needs one argument to execute.\nIt is the path to the file that contains the code to optimize.");
+            return;
+        }
+
         AutotunerLexer lexer = new AutotunerLexer(CharStreams.fromFileName(args[0]));
         AutotunerParser parser = new AutotunerParser(new CommonTokenStream(lexer));
 

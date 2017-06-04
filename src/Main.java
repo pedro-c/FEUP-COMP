@@ -19,5 +19,8 @@ public class Main {
 
         programBuilder.run();
         programBuilder.printBestInformation();
+
+        System.out.println("Best Code:");
+        System.out.println(programBuilder.getBestCode());
     }
 }

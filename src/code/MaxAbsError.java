@@ -4,6 +4,7 @@ public class MaxAbsError extends Code {
     private final String variable;
     private final int error;
     private Integer referenceValue = null;
+    private Assert assertion;
 
     public MaxAbsError(String variable, int error) {
         this.variable = variable;
@@ -12,13 +13,14 @@ public class MaxAbsError extends Code {
 
     void setReferenceValue(int referenceValue) {
         this.referenceValue = referenceValue;
+        assertion = new Assert("abs(" + variable + " - " + referenceValue + ") <= " + error);
         System.out.println("Reference Value for " + variable + ": " + referenceValue);
     }
 
     @Override
     public String toString() {
         if (referenceValue != null)
-            return "assert(abs(" + variable + " - " + referenceValue + ") <= " + error + ");";
+            return assertion.toString();
         else
             return getVariableValue();
     }

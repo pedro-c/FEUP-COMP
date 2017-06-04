@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class ProgramBuilder {
-    private static final int MAX_ITERATIONS = 200;
+    private static final int MAX_ITERATIONS = 500;
     private final ArrayList<Code> codeArrayList = new ArrayList<>();
     private final LinkedList<Variable> variables = new LinkedList<>();
     private final ArrayList<Variable> bestVariables = new ArrayList<>();
@@ -93,7 +93,6 @@ public class ProgramBuilder {
         do {
             try {
                 curVar.updateBestBenchmark(runIteration());
-                System.out.println(curVar.getCurrentValue());
             } catch (AssertionError ignored) {
             }
             curVar = next();
@@ -150,5 +149,10 @@ public class ProgramBuilder {
             System.out.println(var.getName() + ": " + var.getBestValue() + "\t" + var.getBestAvg());
 
         }
+    }
+
+    public String getBestCode() {
+        Assert.isBenchmark = false;
+        return toString();
     }
 }

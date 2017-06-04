@@ -27,35 +27,34 @@ public class Variable extends Code {
             return Integer.toString(currentValue);
     }
 
-    public void updateBestBenchmark(double bestAvg) {
+    void updateBestBenchmark(double bestAvg) {
         if (bestAvg < this.bestAvg) {
             this.bestAvg = bestAvg;
             this.bestValue = currentValue;
         }
     }
 
-
-    public boolean hasNext() {
+    boolean hasNext() {
         return currentValue < max;
     }
 
-    public void next() {
+    void next() {
         currentValue++;
     }
 
-    public double getBestAvg() {
+    double getBestAvg() {
         return bestAvg;
     }
 
-    public int getBestValue() {
+    int getBestValue() {
         return bestValue;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public int getCurrentValue() {
-        return currentValue;
+    void setBestValue() {
+        currentValue = bestValue;
     }
 }

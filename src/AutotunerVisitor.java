@@ -1,7 +1,4 @@
-import code.MaxAbsError;
-import code.ProgramBuilder;
-import code.StaticCode;
-import code.Variable;
+import code.*;
 import gen.AutotunerParser;
 import gen.AutotunerParserBaseVisitor;
 
@@ -83,7 +80,7 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
     @Override
     public T visitIs_even(AutotunerParser.Is_evenContext ctx) {
         String variable = ctx.IDENTIFIER().getText();
-        programBuilder.append(new StaticCode("assert(" + variable + " % 2 == 0);"));
+        programBuilder.append(new Assert(variable + " % 2 == 0"));
 
         return visitChildren(ctx);
     }

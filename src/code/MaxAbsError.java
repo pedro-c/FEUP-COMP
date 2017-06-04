@@ -26,6 +26,7 @@ public class MaxAbsError extends Code {
     private String getVariableValue() {
         return "int fd = open(\"" + ProgramBuilder.FIFO_NAME + "\", O_WRONLY);\n" +
                 "write(fd, &" + variable + ", sizeof(" + variable + "));\n" +
+                "printf(\"%d\", " + variable + ");\n" +
                 "close(fd);\n";
     }
 }

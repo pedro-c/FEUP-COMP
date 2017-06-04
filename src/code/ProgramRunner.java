@@ -7,7 +7,6 @@ public class ProgramRunner {
     private static final String C_COMPILER = "gcc";
 
     public static void compile(String code, String fileName) throws IOException {
-
         try (PrintWriter out = new PrintWriter(fileName + ".c")) {
             out.println(code);
         }

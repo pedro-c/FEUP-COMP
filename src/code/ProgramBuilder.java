@@ -62,11 +62,10 @@ public class ProgramBuilder {
         int varIndex = 0;
         try {
             while (true) {
-                var = fifo.readInt();
+                var = Integer.reverseBytes(fifo.readInt());
                 absErrors.get(varIndex).setReferenceValue(var);
             }
         } catch (IOException ignored) {
-            ignored.printStackTrace();
         }
 
         try {
@@ -86,10 +85,11 @@ public class ProgramBuilder {
         wait.get();
         fifoFile.delete();
 
-        /*while (hasNext()) {
+        System.out.println("Starting iterations.");
+        while (hasNext()) {
             next();
             runIteration();
-        }*/
+        }
     }
 
     private void runIteration() throws IOException, InterruptedException {

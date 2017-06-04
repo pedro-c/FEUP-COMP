@@ -20,16 +20,18 @@ public class ProgramRunner {
         }
     }
 
-    public static void run(String programName) throws IOException, InterruptedException {
+    public static int run(String programName) throws IOException, InterruptedException {
         ProcessBuilder processBuilder = new ProcessBuilder("./" + programName);
-        processBuilder.start().waitFor();
+        return processBuilder.start().waitFor();
     }
 
     public static double runAndBenchmark(String programName) throws IOException, InterruptedException {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
-        run(programName);
+        if (run(programName) != 0)
+            throw new AssertionError();
+
 
         return stopWatch.stop();
     }

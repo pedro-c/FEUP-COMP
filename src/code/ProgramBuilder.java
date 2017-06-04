@@ -12,16 +12,24 @@ public class ProgramBuilder {
     private static final int MAX_ITERATIONS = 200;
     private final ArrayList<Code> codeArrayList = new ArrayList<>();
     private final LinkedList<Variable> variables = new LinkedList<>();
+    private final ArrayList<Variable> bestVariables = new ArrayList<>();
     private final ArrayList<MaxAbsError> absErrors = new ArrayList<>();
     private static final String[] libraries = {"assert.h", "stdlib.h", "sys/types.h", "sys/stat.h", "fcntl.h", "unistd.h"};
     static final String FIFO_NAME = "fifo";
     private static final String FILE_NAME = "autotuner";
 
-    private void next() {
-        if (variables.peek().hasNext())
-            variables.peek().next();
-        else if (!variables.isEmpty())
-            variables.poll().next();
+    private Variable next() {
+        Variable var = variables.peek();
+
+        if (var.hasNext()) {
+            var.next();
+        } else if (!variables.isEmpty()) {
+            var.next();
+            variables.poll();
+        } else
+            var = null;
+
+        return var;
     }
 
     private void runReference(File fifoFile, CompletableFuture<Void> wait) {
@@ -79,24 +87,23 @@ public class ProgramBuilder {
         fifoFile.delete();
 
         while (hasNext()) {
-            next();
-            runIteration();
+            Variable curVar = next();
+
+            try {
+                curVar.updateBestBenchmark(runIteration());
+            } catch (AssertionError ignored) {
+            }
         }
     }
 
-    private void runIteration() throws IOException, InterruptedException {
+    private double runIteration() throws IOException, InterruptedException {
         ProgramRunner.compile(toString(), FILE_NAME);
 
-        try {
-            double avg = 0;
-            for (int i = 0; i < MAX_ITERATIONS; i++)
-                avg += ProgramRunner.runAndBenchmark(FILE_NAME);
+        double avg = 0;
+        for (int i = 0; i < MAX_ITERATIONS; i++)
+            avg += ProgramRunner.runAndBenchmark(FILE_NAME);
 
-            avg /= MAX_ITERATIONS;
-            System.out.println("Avg for iteration: " + avg);
-        } catch (AssertionError e) {
-            System.out.println("Invalid iteration.");
-        }
+        return avg / MAX_ITERATIONS;
     }
 
     private boolean hasNext() {
@@ -109,6 +116,7 @@ public class ProgramBuilder {
 
     public void addVariable(Variable variable) {
         variables.add(variable);
+        bestVariables.add(variable);
     }
 
     public void addMaxAbsError(MaxAbsError maxAbsError) {
@@ -131,5 +139,12 @@ public class ProgramBuilder {
         }
 
         return sb.toString();
+    }
+
+    public void printBestInformation() {
+        for (Variable var : bestVariables) {
+            System.out.println(var.getName() + ": " + var.getBestValue() + "\t" + var.getBestAvg());
+
+        }
     }
 }

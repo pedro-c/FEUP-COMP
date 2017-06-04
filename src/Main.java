@@ -18,5 +18,6 @@ public class Main {
         autotunerVisitor.visit(parser.main());
 
         programBuilder.run();
+        programBuilder.printBestInformation();
     }
 }

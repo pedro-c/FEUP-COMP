@@ -1,20 +1,23 @@
 package code;
 
-import java.io.EOFException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 
 public class ProgramBuilder {
+    private static final int MAX_ITERATIONS = 500;
     private final ArrayList<Code> codeArrayList = new ArrayList<>();
     private final LinkedList<Variable> variables = new LinkedList<>();
     private final ArrayList<MaxAbsError> absErrors = new ArrayList<>();
-    private static final String[] libraries = {"assert.h", "stdlib.h"};
+    private static final String[] libraries = {"assert.h", "stdlib.h", "sys/types.h", "sys/stat.h", "fcntl.h", "unistd.h", "stdio.h"};
     static final String FIFO_NAME = "fifo";
+    private static final String FILE_NAME = "autotuner";
 
     private void next() {
         if (variables.peek().hasNext())
@@ -23,45 +26,81 @@ public class ProgramBuilder {
             variables.poll().next();
     }
 
-    public void run() throws IOException, InterruptedException {
-        File fifoFile = new File(FIFO_NAME);
-        fifoFile.createNewFile();
-        RandomAccessFile fifo = new RandomAccessFile(fifoFile, "r");
+    private void runReference(File fifoFile, CompletableFuture<Void> wait) {
+        final RandomAccessFile fifo;
+        try {
+            fifo = new RandomAccessFile(fifoFile, "r");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            wait.completeExceptionally(e);
+            return;
+        }
 
-        System.out.println(toString());
-        CompletableFuture<Void> wait = new CompletableFuture<>();
+        try {
+            ProgramRunner.compile(toString(), FILE_NAME);
+        } catch (IOException e) {
+            e.printStackTrace();
+            wait.completeExceptionally(e);
+            return;
+        }
 
         new Thread(() -> {
-            int var;
-            int varIndex = 0;
             try {
-                while (true) {
-                    var = fifo.readInt();
-                    absErrors.get(varIndex).setReferenceValue(var);
-                }
-            } catch (EOFException ignored) {
-                wait.complete(null);
-            } catch (IOException e) {
-                try {
-                    fifo.close();
-                } catch (IOException ignored) {
-                }
-
+                ProgramRunner.run(FILE_NAME);
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
                 wait.completeExceptionally(e);
             }
         }).start();
 
         try {
-            wait.get();
-        } catch (ExecutionException e) {
-            fifoFile.delete();
-            return;
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        int var;
+        int varIndex = 0;
+        try {
+            while (true) {
+                var = fifo.readInt();
+                absErrors.get(varIndex).setReferenceValue(var);
+            }
+        } catch (IOException ignored) {
+            ignored.printStackTrace();
         }
 
-        while (hasNext()) {
-            next();
-            System.out.println(toString());
+        try {
+            fifo.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            wait.completeExceptionally(e);
         }
+    }
+
+    public void run() throws IOException, InterruptedException, ExecutionException {
+        File fifoFile = new File(FIFO_NAME);
+        fifoFile.createNewFile();
+
+        CompletableFuture<Void> wait = new CompletableFuture<>();
+        Executors.newSingleThreadExecutor().submit(() -> runReference(fifoFile, wait));
+        wait.get();
+        fifoFile.delete();
+
+        /*while (hasNext()) {
+            next();
+            runIteration();
+        }*/
+    }
+
+    private void runIteration() throws IOException, InterruptedException {
+        ProgramRunner.compile(toString(), FILE_NAME);
+
+        int avg = 0;
+        for (int i = 0; i < MAX_ITERATIONS; i++)
+            avg += ProgramRunner.runAndBenchmark(FILE_NAME);
+
+        avg /= MAX_ITERATIONS;
+        System.out.println("Avg for iteration: " + avg);
     }
 
     private boolean hasNext() {

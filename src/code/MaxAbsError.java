@@ -12,6 +12,7 @@ public class MaxAbsError extends Code {
 
     void setReferenceValue(int referenceValue) {
         this.referenceValue = referenceValue;
+        System.out.println("Reference Value for " + variable + ": " + referenceValue);
     }
 
     @Override
@@ -23,8 +24,8 @@ public class MaxAbsError extends Code {
     }
 
     private String getVariableValue() {
-        return "int fd = open(" + ProgramBuilder.FIFO_NAME + ", O_WRONLY);\n" +
-                "write(fd, &" + variable + ", sizeof(variable));\n" +
+        return "int fd = open(\"" + ProgramBuilder.FIFO_NAME + "\", O_WRONLY);\n" +
+                "write(fd, &" + variable + ", sizeof(" + variable + "));\n" +
                 "close(fd);\n";
     }
 }

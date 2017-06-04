@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class ProgramBuilder {
-    private static final int MAX_ITERATIONS = 500;
+    private static final int MAX_ITERATIONS = 5000;
     private final ArrayList<Code> codeArrayList = new ArrayList<>();
     private final LinkedList<Variable> variableQueue = new LinkedList<>();
     private final ArrayList<Variable> variables = new ArrayList<>();

@@ -4,10 +4,10 @@ public class StopWatch {
     private double start = 0;
 
     void start() {
-        start = System.currentTimeMillis();
+        start = System.nanoTime();
     }
 
     double stop() {
-        return System.currentTimeMillis() - start;
+        return System.nanoTime() - start;
     }
 }

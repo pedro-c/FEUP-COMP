@@ -59,3 +59,6 @@ src/gen/*
 *.tokens
 
 *.iml
+
+autotuner
+autotuner.c

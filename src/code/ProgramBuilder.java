@@ -60,7 +60,7 @@ public class ProgramBuilder {
         } catch (IOException ignored) {
             /* When the FIFO has no more info to send. */
         }
-        
+
         try {
             fifo.close();
         } catch (IOException e) {
@@ -87,12 +87,16 @@ public class ProgramBuilder {
     private void runIteration() throws IOException, InterruptedException {
         ProgramRunner.compile(toString(), FILE_NAME);
 
-        double avg = 0;
-        for (int i = 0; i < MAX_ITERATIONS; i++)
-            avg += ProgramRunner.runAndBenchmark(FILE_NAME);
+        try {
+            double avg = 0;
+            for (int i = 0; i < MAX_ITERATIONS; i++)
+                avg += ProgramRunner.runAndBenchmark(FILE_NAME);
 
-        avg /= MAX_ITERATIONS;
-        System.out.println("Avg for iteration: " + avg);
+            avg /= MAX_ITERATIONS;
+            System.out.println("Avg for iteration: " + avg);
+        } catch (AssertionError e) {
+            System.out.println("Invalid iteration.");
+        }
     }
 
     private boolean hasNext() {

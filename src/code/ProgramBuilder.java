@@ -15,7 +15,7 @@ public class ProgramBuilder {
     private final ArrayList<Code> codeArrayList = new ArrayList<>();
     private final LinkedList<Variable> variables = new LinkedList<>();
     private final ArrayList<MaxAbsError> absErrors = new ArrayList<>();
-    private static final String[] libraries = {"assert.h", "stdlib.h", "sys/types.h", "sys/stat.h", "fcntl.h", "unistd.h", "stdio.h"};
+    private static final String[] libraries = {"assert.h", "stdlib.h", "sys/types.h", "sys/stat.h", "fcntl.h", "unistd.h"};
     static final String FIFO_NAME = "fifo";
     private static final String FILE_NAME = "autotuner";
 

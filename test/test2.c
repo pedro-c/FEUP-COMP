@@ -1,5 +1,5 @@
 int main() {
-    int N = 5;
+    int N = 1024;
     int buf[N];
     int acc = 0;
 
@@ -20,7 +20,6 @@ int main() {
         accu += buf[i];
     }
     accu *= var;
-    #pragma tuner is_even accu
 
     return 0;
 }

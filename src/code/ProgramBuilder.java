@@ -16,7 +16,7 @@ public class ProgramBuilder {
     private final ArrayList<MaxAbsError> absErrors = new ArrayList<>();
     private static final String[] libraries = {"assert.h", "stdlib.h", "sys/types.h", "sys/stat.h", "fcntl.h", "unistd.h"};
     static final String FIFO_NAME = "fifo";
-    private static final String FILE_NAME = "autotuner";
+    public static final String FILE_NAME = "autotuner";
 
     private Variable next() {
         Variable var = variableQueue.peek();
@@ -35,6 +35,7 @@ public class ProgramBuilder {
     }
 
     private void runReference(File fifoFile, CompletableFuture<Void> wait) {
+        System.out.println("Running reference...");
         final RandomAccessFile fifo;
         try {
             fifo = new RandomAccessFile(fifoFile, "r");
@@ -90,6 +91,7 @@ public class ProgramBuilder {
 
         Variable curVar = next();
 
+        System.out.println("Starting benchmarks...");
         do {
             try {
                 curVar.updateBestBenchmark(runIteration());
@@ -146,7 +148,7 @@ public class ProgramBuilder {
 
     public void printBestInformation() {
         for (Variable var : variables)
-            System.out.println(var.getName() + ": " + var.getBestValue() + "\t" + var.getBestAvg());
+            System.out.println("Name: " + var.getName() + "\tValue: " + var.getBestValue() + "\tAverage: " + var.getBestAvg());
     }
 
     public String getBestCode() {
@@ -154,6 +156,13 @@ public class ProgramBuilder {
             var.setBestValue();
 
         Assert.isBenchmark = false;
-        return toString();
+
+        StringBuilder sb = new StringBuilder();
+        for (Code code : codeArrayList) {
+            sb.append(code.toString());
+            sb.append(" ");
+        }
+
+        return sb.toString();
     }
 }

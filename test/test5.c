@@ -2,7 +2,7 @@ int main() {
     int N = 1024;
     int buf[N];
     int acc = 0;
-    int accu
+    int accu = 0;
 
     for(int i = 0; i < N; i++) {
         buf[i] = i;
@@ -14,6 +14,13 @@ int main() {
     }
     acc *= STEP;
     #pragma tuner max_abs_error acc 5
-    
+
+    #pragma tuner explore var(1, 10) reference(var=2)
+    for (int i = 0; i < N; i += var) {
+        accu += buf[i];
+    }
+    accu *= var;
+    #pragma tuner is_positive accu
+
     return 0;
 }

@@ -13,7 +13,7 @@ import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
 
 public class ProgramBuilder {
-    private static final int MAX_ITERATIONS = 5000;
+    private static final int MAX_ITERATIONS = 500;
     private final ArrayList<Code> codeArrayList = new ArrayList<>();
     private final LinkedList<Variable> variableQueue = new LinkedList<>();
     private final ArrayList<Variable> variables = new ArrayList<>();

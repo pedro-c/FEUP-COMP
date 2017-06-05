@@ -1,8 +1,10 @@
-EXEMPLO 1:
+EXAMPLE 1:
 
-In this example we are demonstrating the use of the pragma tuner 'explore' along side with 'max_abs_error' which optimizes a for cycle to increase with the most efficient value while retaining the absolute error in the boundarie specified by the pragma 'max_abs_error'. 
+In this example we are demonstrating the use of the pragma tuner 'explore' alongside with 'max_abs_error' which,
+in this case, optimizes a 'for' cycle to step with the most efficient value, while retaining the maximum absolute error
+in the boundary specified by the pragma 'max_abs_error'.
  
-File test1.c used to generate this code.
+The file test1.c was used to generate this code.
  
 Running reference...
 Reference Value for acc: 523776

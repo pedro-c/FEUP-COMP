@@ -1,5 +1,8 @@
-In this example we are demonstrating the use of the pragma tuner 'explore' using two for cycles with diferente constains. In the first one using the pragma 'max_abs_error' and in the second using two constrains, 'is_positive' and 'is_even'.
-The results are shown bellow.
+EXAMPLE 6:
+
+In this example we are demonstrating the use of the pragma tuner 'explore' using two 'for' cycles with different
+constraints. In the first one using the pragma 'max_abs_error' and in the second using two constraints:
+'is_positive' and 'is_even'. The results are shown below.
 
 File test6.c used to generate this code.
  
@@ -9,8 +12,7 @@ Starting benchmarks...
 Name: STEP	Value: -5	Average: 6692850.317ns
 Name: var	Value: 1	Average: 5369738.1838ns
 Best code:
-#include "stdio.h"
-int main ( ) { 
+int main ( ) {
 int N = 1024 ; 
 int buf [ N ] ; 
 int acc = 0 ; 

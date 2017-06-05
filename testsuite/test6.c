@@ -1,10 +1,8 @@
-#include "stdio.h"
 int main() {
     int N = 1024;
     int buf[N];
     int acc = 0;
     int accu = 0;
-
 
     for(int i = 0; i < N; i++) {
         buf[i] = i*i;

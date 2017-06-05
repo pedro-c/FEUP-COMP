@@ -1,5 +1,8 @@
-In this example we are demonstrating the use of the pragma tuner 'explore' using two for cycles with diferente constains. In the first one using the pragma 'max_abs_error' and in the second 'is_positive'.
-The results are shown bellow.
+EXAMPLE 5:
+
+In this example we are demonstrating the use of the pragma tuner 'explore' using two 'for' cycles with different
+constraints. In the first one using the pragma 'max_abs_error' and in the second 'is_positive'.
+The results are shown below.
 
 File test5.c used to generate this code.
  

@@ -1,31 +1,34 @@
 package code;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class ProgramRunner {
+import static code.ProgramBuilder.FILE_NAME;
+
+class ProgramRunner {
     private static final String C_COMPILER = "gcc";
 
-    public static void compile(String code, String fileName) throws IOException {
+    static void compile(String code, String fileName) throws Exception {
         try (PrintWriter out = new PrintWriter(fileName + ".c")) {
             out.println(code);
         }
 
         ProcessBuilder processBuilder = new ProcessBuilder(C_COMPILER, fileName + ".c", "-o", fileName);
-        processBuilder.inheritIO();
         try {
-            processBuilder.start().waitFor();
+            if (processBuilder.start().waitFor() != 0)
+                throw new Exception("Invalid C code. Compilation failed.");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public static int run(String programName) throws IOException, InterruptedException {
+    static int run(String programName) throws IOException, InterruptedException {
         ProcessBuilder processBuilder = new ProcessBuilder("./" + programName);
         return processBuilder.start().waitFor();
     }
 
-    public static double runAndBenchmark(String programName) throws IOException, InterruptedException {
+    static double runAndBenchmark(String programName) throws IOException, InterruptedException {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
@@ -36,4 +39,8 @@ public class ProgramRunner {
         return stopWatch.stop();
     }
 
+    static void clean() {
+        File file = new File(FILE_NAME);
+        file.delete();
+    }
 }

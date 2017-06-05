@@ -1,8 +1,10 @@
 import code.ProgramBuilder;
 import gen.AutotunerLexer;
 import gen.AutotunerParser;
+import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 
 import static code.ProgramBuilder.FILE_NAME;
 
-public class Main {
+class Main {
 
     public static void main(String... args) throws IOException, InterruptedException, ExecutionException {
         if (args.length != 1) {
@@ -21,10 +23,16 @@ public class Main {
 
         AutotunerLexer lexer = new AutotunerLexer(CharStreams.fromFileName(args[0]));
         AutotunerParser parser = new AutotunerParser(new CommonTokenStream(lexer));
+        parser.setErrorHandler(new BailErrorStrategy());
 
         ProgramBuilder programBuilder = new ProgramBuilder();
         AutotunerVisitor autotunerVisitor = new AutotunerVisitor<>(programBuilder);
-        autotunerVisitor.visit(parser.main());
+        try {
+            autotunerVisitor.visit(parser.main());
+        } catch (ParseCancellationException e) {
+            System.err.println("Found syntax errors in input. Aborting..");
+            System.exit(3);
+        }
 
         programBuilder.run();
         programBuilder.printBestInformation();

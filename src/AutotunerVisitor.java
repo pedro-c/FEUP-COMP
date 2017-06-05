@@ -1,12 +1,16 @@
 import code.*;
+import code.generation.Assert;
+import code.generation.MaxAbsError;
+import code.generation.StaticCode;
+import code.generation.Variable;
 import gen.AutotunerParser;
 import gen.AutotunerParserBaseVisitor;
 
 import java.util.HashMap;
 
 public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
-    private HashMap<String, Variable> variablesHashMap = new HashMap<>();
-    private ProgramBuilder programBuilder;
+    private final HashMap<String, Variable> variablesHashMap = new HashMap<>();
+    private final ProgramBuilder programBuilder;
 
     AutotunerVisitor(ProgramBuilder programBuilder) {
         super();

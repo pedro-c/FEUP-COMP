@@ -1,6 +1,6 @@
 package code;
 
-public class StopWatch {
+class StopWatch {
     private double start = 0;
 
     void start() {

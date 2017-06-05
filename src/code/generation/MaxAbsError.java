@@ -1,4 +1,6 @@
-package code;
+package code.generation;
+
+import code.ProgramBuilder;
 
 public class MaxAbsError extends Code {
     private final String variable;
@@ -11,7 +13,7 @@ public class MaxAbsError extends Code {
         this.error = error;
     }
 
-    void setReferenceValue(int referenceValue) {
+    public void setReferenceValue(int referenceValue) {
         this.referenceValue = referenceValue;
         assertion = new Assert("abs(" + variable + " - " + referenceValue + ") <= " + error);
         System.out.println("Reference Value for " + variable + ": " + referenceValue);

@@ -1,5 +1,10 @@
 package code;
 
+import code.generation.Assert;
+import code.generation.Code;
+import code.generation.MaxAbsError;
+import code.generation.Variable;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -15,7 +20,7 @@ public class ProgramBuilder {
     private final ArrayList<Variable> variables = new ArrayList<>();
     private final ArrayList<MaxAbsError> absErrors = new ArrayList<>();
     private static final String[] libraries = {"assert.h", "stdlib.h", "sys/types.h", "sys/stat.h", "fcntl.h", "unistd.h"};
-    static final String FIFO_NAME = "fifo";
+    public static final String FIFO_NAME = "fifo";
     public static final String FILE_NAME = "autotuner";
 
     private Variable next() {
@@ -96,12 +101,18 @@ public class ProgramBuilder {
             try {
                 curVar.updateBestBenchmark(runIteration());
             } catch (AssertionError ignored) {
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+                System.exit(2);
             }
+
             curVar = next();
         } while (hasNext());
+
+        ProgramRunner.clean();
     }
 
-    private double runIteration() throws IOException, InterruptedException {
+    private double runIteration() throws Exception {
         ProgramRunner.compile(toString(), FILE_NAME);
 
         double avg = 0;
@@ -148,7 +159,7 @@ public class ProgramBuilder {
 
     public void printBestInformation() {
         for (Variable var : variables)
-            System.out.println("Name: " + var.getName() + "\tValue: " + var.getBestValue() + "\tAverage: " + var.getBestAvg());
+            System.out.println("Name: " + var.getName() + "\tValue: " + var.getBestValue() + "\tAverage: " + var.getBestAvg() + "ns");
     }
 
     public String getBestCode() {

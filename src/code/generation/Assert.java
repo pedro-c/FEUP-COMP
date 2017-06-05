@@ -1,7 +1,7 @@
-package code;
+package code.generation;
 
 public class Assert extends Code {
-    private String expression;
+    private final String expression;
     public static boolean isBenchmark = true;
 
     public Assert(String expression) {

@@ -1,10 +1,10 @@
-package code;
+package code.generation;
 
 public class Variable extends Code {
     private final String name;
-    private int min;
-    private int max;
-    private int reference;
+    private final int min;
+    private final int max;
+    private final int reference;
     private int currentValue;
     private int bestValue;
     private double bestAvg;
@@ -27,34 +27,34 @@ public class Variable extends Code {
             return Integer.toString(currentValue);
     }
 
-    void updateBestBenchmark(double bestAvg) {
+    public void updateBestBenchmark(double bestAvg) {
         if (bestAvg < this.bestAvg) {
             this.bestAvg = bestAvg;
             this.bestValue = currentValue;
         }
     }
 
-    boolean hasNext() {
+    public boolean hasNext() {
         return currentValue < max;
     }
 
-    void next() {
+    public void next() {
         currentValue++;
     }
 
-    double getBestAvg() {
+    public double getBestAvg() {
         return bestAvg;
     }
 
-    int getBestValue() {
+    public int getBestValue() {
         return bestValue;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    void setBestValue() {
+    public void setBestValue() {
         currentValue = bestValue;
     }
 }

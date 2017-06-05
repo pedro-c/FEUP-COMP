@@ -1,7 +1,7 @@
-package code;
+package code.generation;
 
 public class StaticCode extends Code {
-    private String code;
+    private final String code;
 
     public StaticCode(String code) {
         super();

@@ -27,6 +27,7 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
                 throw new Exception("Explore cannot have two different variables in its declaration.");
             } catch (Exception e) {
                 e.printStackTrace();
+                System.exit(1);
             }
 
         } else if (min >= max) {
@@ -34,6 +35,7 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
                 throw new Exception("Explore minimum must be lower than maximum.");
             } catch (Exception e) {
                 e.printStackTrace();
+                System.exit(1);
             }
         } else {
             Variable variable = new Variable(varName, reference, min, max);
@@ -81,6 +83,30 @@ public class AutotunerVisitor<T> extends AutotunerParserBaseVisitor<T> {
     public T visitIs_even(AutotunerParser.Is_evenContext ctx) {
         String variable = ctx.IDENTIFIER().getText();
         programBuilder.append(new Assert(variable + " % 2 == 0"));
+
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitIs_odd(AutotunerParser.Is_oddContext ctx) {
+        String variable = ctx.IDENTIFIER().getText();
+        programBuilder.append(new Assert(variable + " % 2 == 1"));
+
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitIs_positive(AutotunerParser.Is_positiveContext ctx) {
+        String variable = ctx.IDENTIFIER().getText();
+        programBuilder.append(new Assert(variable + " > 0"));
+
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public T visitIs_negative(AutotunerParser.Is_negativeContext ctx) {
+        String variable = ctx.IDENTIFIER().getText();
+        programBuilder.append(new Assert(variable + " < 0"));
 
         return visitChildren(ctx);
     }

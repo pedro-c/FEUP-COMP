@@ -4,12 +4,15 @@ options { tokenVocab=AutotunerLexer; }
 
 pragma: PRAGMA_TUNER tuner_id;
 
-tuner_id: explore | max_abs_error | is_even; //adicionar os nomes dos pragmas que fizermos
+tuner_id: explore | max_abs_error | is_even | is_odd | is_positive | is_negative;
 
 //pragmas
 explore: EXPLORE STEP=IDENTIFIER LEFT_PARENTHESIS MIN=NUMBER COMMA MAX=NUMBER RIGHT_PARENTHESIS REFERENCE LEFT_PARENTHESIS IDENTIFIER ASSIGNMENT REF=NUMBER RIGHT_PARENTHESIS;
 max_abs_error: MAX_ABS_ERROR IDENTIFIER NUMBER;
 is_even: IS_EVEN IDENTIFIER;
+is_odd: IS_ODD IDENTIFIER;
+is_positive: IS_POSITIVE IDENTIFIER;
+is_negative: IS_NEGATIVE IDENTIFIER;
 
 //Parser init
 main: include*? (pragma | keyword | variable | ignore)*? EOF;

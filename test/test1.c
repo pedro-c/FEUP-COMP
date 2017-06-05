@@ -20,6 +20,7 @@ int main() {
         accu += buf[i];
     }
     accu *= var;
+    #pragma tuner is_positive accu
 
     return 0;
 }

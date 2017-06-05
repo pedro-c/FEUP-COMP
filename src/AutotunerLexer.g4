@@ -5,6 +5,9 @@ EXPLORE: 'explore';
 REFERENCE: 'reference';
 MAX_ABS_ERROR: 'max_abs_error';
 IS_EVEN: 'is_even';
+IS_ODD: 'is_odd';
+IS_POSITIVE: 'is_positive';
+IS_NEGATIVE: 'is_negative';
 
 INCLUDE: 'include ';
 

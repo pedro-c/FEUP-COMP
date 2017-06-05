@@ -56,7 +56,7 @@ In order to find the best values for the variables, in our java code, we create 
  
 TASK DISTRIBUTION:
 Bernardo Belchior: Code Generation, Java and C code communication
-Francisca Paup�rio: C code parsing and semantic analysis, Code compilation and execution
+Francisca Paupério: C code parsing and semantic analysis, Code compilation and execution
 Pedro Costa: Grammar definition and Performance Benchmarks
 
 PROS:

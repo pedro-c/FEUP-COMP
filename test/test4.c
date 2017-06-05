@@ -7,12 +7,12 @@ int main() {
         buf[i] = i;
     }
 
-        #pragma tuner explore var(1, 10) reference(var=2)
-        for (int i = 0; i < N; i += var) {
-            accu += buf[i];
-        }
-        acc *= var;
-        #pragma tuner is_odd acc
+    #pragma tuner explore var(1, 10) reference(var=2)
+    for (int i = 0; i < N; i += var) {
+        accu += buf[i];
+    }
+    acc *= var;
+    #pragma tuner is_odd acc
 
     return 0;
 }

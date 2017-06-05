@@ -12,7 +12,7 @@ int main() {
             accu += buf[i];
         }
         acc *= var;
-        #pragma tuner is_positive acc
+        #pragma tuner is_odd acc
 
     return 0;
 }

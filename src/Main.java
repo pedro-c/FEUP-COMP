@@ -34,7 +34,13 @@ class Main {
             System.exit(3);
         }
 
-        programBuilder.run();
+        try {
+            programBuilder.run();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            System.exit(4);
+        }
+
         programBuilder.printBestInformation();
 
         System.out.println("Best code stored on file " + FILE_NAME + ".c");

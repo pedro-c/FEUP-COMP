@@ -59,4 +59,6 @@ specialChar
     | QUESTION_MARK
     | COLON
     | SEMI_COLON
-    | ASSIGNMENT;
+    | ASSIGNMENT
+    | PERCENTAGE
+    | COMMA;

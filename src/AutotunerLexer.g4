@@ -38,7 +38,7 @@ KEYWORD
    | 'while';
 
 
-NUMBER: DIGIT+;
+NUMBER: (MINUS | ) DIGIT+;
 IDENTIFIER: ID_CHAR (ID_CHAR | NUMBER)*;
 LIBRARY: IDENTIFIER ('.' IDENTIFIER);
 
@@ -94,6 +94,7 @@ PLUS: '+';
 MINUS: '-';
 MULT: '*';
 DIV: '/';
+PERCENTAGE: '%';
 
 HASH: '#';
 

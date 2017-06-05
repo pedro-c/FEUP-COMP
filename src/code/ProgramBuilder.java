@@ -11,7 +11,6 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class ProgramBuilder {
     private static final int MAX_ITERATIONS = 5000;
@@ -62,7 +61,7 @@ public class ProgramBuilder {
         }).start();
 
         try {
-            Thread.sleep(2000); //FIXME:
+            Thread.sleep(2000);
         } catch (InterruptedException ignored) {
         }
 
@@ -85,7 +84,7 @@ public class ProgramBuilder {
         }
     }
 
-    public void run() throws IOException, InterruptedException, ExecutionException {
+    public void run() throws Exception {
         File fifoFile = new File(FIFO_NAME);
         fifoFile.createNewFile();
 
@@ -97,6 +96,7 @@ public class ProgramBuilder {
         Variable curVar = next();
 
         System.out.println("Starting benchmarks...");
+        Assert.isBenchmark = true;
         do {
             try {
                 curVar.updateBestBenchmark(runIteration());
@@ -108,6 +108,11 @@ public class ProgramBuilder {
 
             curVar = next();
         } while (hasNext());
+
+        for (Variable variable : variables) {
+            if (variable.getBestAvg() == Double.MAX_VALUE)
+                throw new Exception("Variable " + variable.getName() + " never fulfills the pragma condition.");
+        }
 
         ProgramRunner.clean();
     }

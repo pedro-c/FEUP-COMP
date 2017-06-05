@@ -1,0 +1,25 @@
+In this example we are demonstrating the use of the pragma tuner 'explore' along side with 'is_positive' which optimizes a for cycle to increase with the most efficient value while mantaining the value of the acc positive as specified by the pragma 'is_positive'.
+
+File test2.c used to generate this code.
+ 
+Running reference...
+Starting benchmarks...
+Name: var	Value: 2	Average: 5260610.88ns
+Best code:
+int main ( ) { 
+int N = 1024 ; 
+int buf [ N ] ; 
+int acc = 0 ; 
+ 
+for ( int i = 0 ; i < N ; i ++ ) { 
+buf [ i ] = i ; 
+} 
+ 
+for ( int i = 0 ; i < N ; i += 2 ) { 
+acc += buf [ i ] ; 
+} 
+acc *= 2 ; 
+ 
+return 0 ; 
+} 
+ 

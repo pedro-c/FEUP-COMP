@@ -1,0 +1,9 @@
+In this example we are demonstrating the use of the pragma tuner 'explore' along side with 'is_negative' which optimizes a for cycle to increase with the most efficient value while mantaining the value of the acc negative as specified by the pragma 'is_negative'.
+
+File test3.c used to generate this code.
+ 
+Running reference...
+Starting benchmarks…
+ 
+Variable var never fulfills the pragma condition.
+

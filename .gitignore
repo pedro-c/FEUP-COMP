@@ -3,6 +3,7 @@
 .idea/**/tasks.xml
 .idea/dictionaries
 .idea/*
+auto-tuner.iml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -19,7 +20,7 @@
 .gradle
 /build/
 
-antlr-4.6-complete.jar
+antlr-4.7-complete.jar
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -52,3 +53,12 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+# ANTLR Generated Files
+src/gen/*
+*.tokens
+
+*.iml
+
+autotuner
+autotuner.c
